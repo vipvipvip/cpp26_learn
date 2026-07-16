@@ -10,6 +10,6 @@ public:
     void list_tables();
     void show_table_columns(const std::string& table);
 
-private:
+    pqxx::connection& conn() { return conn_; }
     pqxx::connection conn_;
 };
