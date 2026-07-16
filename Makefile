@@ -2,8 +2,8 @@ CXX      := /usr/bin/g++
 CXXFLAGS := -std=c++26 -Wall -Wextra -Wpedantic -O0 -g -I include
 LDLIBS   := -lstdc++exp
 
-SRCS     := src/main.cpp src/calculator.cpp src/logger.cpp
-HEADERS  := include/types.h include/calculator.h include/logger.h
+SRCS     := $(shell find src -name '*.cpp')
+HEADERS  := $(shell find include -name '*.h')
 OBJS     := $(patsubst src/%.cpp,obj/%.o,$(SRCS))
 BIN      := bin
 TARGET   := $(BIN)/app
@@ -15,14 +15,12 @@ all: $(TARGET)
 $(TARGET): $(OBJS) | $(BIN)
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $^ -o $@ $(LDLIBS)
 
-obj/%.o: src/%.cpp $(HEADERS) | obj
+obj/%.o: src/%.cpp $(HEADERS)
+	@mkdir -p $(dir $@)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-$(BIN) $(BIN)/:
+$(BIN):
 	mkdir -p $(BIN)
-
-obj:
-	mkdir -p obj
 
 run: all
 	./$(TARGET)
