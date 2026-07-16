@@ -1,6 +1,9 @@
 #include "calculator.h"
+#include "logger.h"
 
 #include <cmath>
+#include <print>
+#include <vector>
 
 CalcResult compute(const Command& cmd) {
     switch (cmd.op) {
@@ -26,4 +29,20 @@ std::string_view op_name(Op op) {
         case Op::Div: return "/";
     }
     return "?";
+}
+
+void run_calculator_demo() {
+    std::println("=== Calculator Demo ===\n");
+
+    const std::vector<Command> commands = {
+        {Op::Add, 10, 5},
+        {Op::Sub, 10, 5},
+        {Op::Mul, 10, 5},
+        {Op::Div, 10, 5},
+    };
+
+    for (const auto& cmd : commands) {
+        auto result = compute(cmd);
+        log_result(cmd, result);
+    }
 }

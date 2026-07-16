@@ -1,27 +1,24 @@
 #include "calculator.h"
 #include "logger.h"
-#include "types.h"
+#include "pgsql/connection.h"
 
+#include <unistd.h>
 #include <print>
-#include <vector>
 
 int main() {
     std::println("=== C++26 Hands-On ===\n");
 
-    const std::vector<Command> commands = {
-        {Op::Add, 10, 5},
-        {Op::Sub, 10, 5},
-        {Op::Mul, 10, 5},
-        {Op::Div, 10, 5},
-        //{Op::Div, 10, 0},  // error case
-    };
-
-    for (const auto& cmd : commands) {
-        auto result = compute(cmd);
-        log_result(cmd, result);
-    }
-
+    run_calculator_demo();
     log_stacktrace("main");
 
-    return 0;
+    std::println("\n=== PostgreSQL ===\n");
+
+    try {
+        Database db;
+        db.list_tables();
+    } catch (const std::exception& e) {
+        std::println(stderr, "DB error: {}", e.what());
+    }
+
+    _exit(0);
 }

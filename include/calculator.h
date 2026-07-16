@@ -4,3 +4,4 @@
 
 CalcResult compute(const Command& cmd);
 std::string_view op_name(Op op);
+void run_calculator_demo();

@@ -1,6 +1,6 @@
 CXX      := /usr/bin/g++
 CXXFLAGS := -std=c++26 -Wall -Wextra -Wpedantic -O0 -g -I include
-LDLIBS   := -lstdc++exp
+LDLIBS   := -lstdc++exp $(shell pkg-config --libs libpqxx)
 
 SRCS     := $(shell find src -name '*.cpp')
 HEADERS  := $(shell find include -name '*.h')
