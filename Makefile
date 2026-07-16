@@ -1,10 +1,10 @@
 CXX      := /usr/bin/g++
-CXXFLAGS := -std=c++26 -Wall -Wextra -Wpedantic -O0 -g
+CXXFLAGS := -std=c++26 -Wall -Wextra -Wpedantic -O0 -g -I include
 LDLIBS   := -lstdc++exp
 
-SRCS     := main.cpp calculator.cpp logger.cpp
-HEADERS  := types.h calculator.h logger.h
-OBJS     := $(patsubst %.cpp,obj/%.o,$(SRCS))
+SRCS     := src/main.cpp src/calculator.cpp src/logger.cpp
+HEADERS  := include/types.h include/calculator.h include/logger.h
+OBJS     := $(patsubst src/%.cpp,obj/%.o,$(SRCS))
 BIN      := bin
 TARGET   := $(BIN)/app
 
@@ -15,7 +15,7 @@ all: $(TARGET)
 $(TARGET): $(OBJS) | $(BIN)
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $^ -o $@ $(LDLIBS)
 
-obj/%.o: %.cpp $(HEADERS) | obj
+obj/%.o: src/%.cpp $(HEADERS) | obj
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(BIN) $(BIN)/:
@@ -40,4 +40,4 @@ valgrind: all
 	valgrind --leak-check=full --track-origins=yes --error-exitcode=1 ./$(TARGET)
 
 check: $(SRCS) $(HEADERS)
-	cppcheck --enable=all --std=c++26 --suppress=missingIncludeSystem $(SRCS)
+	cppcheck --enable=all --std=c++26 --suppress=missingIncludeSystem src/ include/

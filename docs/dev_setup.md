@@ -33,10 +33,14 @@ recognizes C++26 headers like `<print>`, `<expected>`, `<stacktrace>`.
 ## Project Layout
 ```
 .
-├── main.cpp            # entry point
-├── calculator.h/.cpp   # std::expected error handling
-├── logger.h/.cpp       # std::print, std::stacktrace
-├── types.h             # concepts, shared types
+├── include/            # header files
+│   ├── types.h         # concepts, shared types
+│   ├── calculator.h    # std::expected error handling
+│   └── logger.h        # std::print, std::stacktrace
+├── src/                # source files
+│   ├── main.cpp        # entry point
+│   ├── calculator.cpp
+│   └── logger.cpp
 ├── Makefile
 ├── obj/                # object files (.o)
 ├── bin/                # executable (app)
@@ -64,11 +68,11 @@ recognizes C++26 headers like `<print>`, `<expected>`, `<stacktrace>`.
 
 | Feature | File | Header |
 |---------|------|--------|
-| `std::expected` | calculator.cpp | `<expected>` |
-| `std::print` | logger.cpp | `<print>` |
-| `std::stacktrace` | logger.cpp | `<stacktrace>` |
-| `std::source_location` | logger.h | `<source_location>` |
-| Concepts (`Arithmetic`) | types.h | `<concepts>` |
+| `std::expected` | src/calculator.cpp | `<expected>` |
+| `std::print` | src/logger.cpp | `<print>` |
+| `std::stacktrace` | src/logger.cpp | `<stacktrace>` |
+| `std::source_location` | include/logger.h | `<source_location>` |
+| Concepts (`Arithmetic`) | include/types.h | `<concepts>` |
 
 ## Debugging
 
