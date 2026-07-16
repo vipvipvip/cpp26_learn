@@ -1,6 +1,6 @@
 #include "calculator.h"
 #include "logger.h"
-#include "pgsql/connection.h"
+#include "pgsql/db_pgsql.h"
 
 #include <unistd.h>
 #include <print>
@@ -14,7 +14,7 @@ int main() {
     std::println("\n=== PostgreSQL ===\n");
 
     try {
-        Database db;
+        DbPgsql db;
         db.list_tables();
     } catch (const std::exception& e) {
         std::println(stderr, "DB error: {}", e.what());

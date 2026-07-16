@@ -3,9 +3,9 @@
 #include <pqxx/pqxx>
 #include <string>
 
-class Database {
+class DbPgsql {
 public:
-    Database();
+    DbPgsql();
 
     void list_tables();
     void show_table_columns(const std::string& table);

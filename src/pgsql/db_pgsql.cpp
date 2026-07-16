@@ -1,14 +1,14 @@
-#include "pgsql/connection.h"
+#include "pgsql/db_pgsql.h"
 
 #include <iostream>
 #include <print>
 
-Database::Database()
+DbPgsql::DbPgsql()
     : conn_("host=127.0.0.1 port=5432 dbname=swingtrader user=swingtrader password=swingtrader_dev_password") {
     std::println("Connected to: {}", conn_.dbname());
 }
 
-void Database::list_tables() {
+void DbPgsql::list_tables() {
     pqxx::work txn(conn_);
 
     auto result = txn.exec(
@@ -25,7 +25,7 @@ void Database::list_tables() {
     std::println("  ({} tables)\n", result.size());
 }
 
-void Database::show_table_columns(const std::string& table) {
+void DbPgsql::show_table_columns(const std::string& table) {
     pqxx::work txn(conn_);
 
     auto result = txn.exec(
