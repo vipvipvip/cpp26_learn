@@ -1,7 +1,11 @@
 #include "calculator.h"
+#include "linalg/matrix.h"
 #include "logger.h"
 #include "pgsql/db_pgsql.h"
 #include "pgsql/repos/stock_ticker_repo.h"
+#include "reflection/reflect.h"
+#include "simd/ops.h"
+#include "std_execution/async.h"
 
 #include <unistd.h>
 #include <print>
@@ -10,6 +14,11 @@ int main() {
     std::println("=== C++26 Hands-On ===\n");
 
     run_calculator_demo();
+    run_linalg_demo();
+    run_simd_demo();
+    run_execution_demo();
+    run_reflection_demo();
+
     log_stacktrace("main");
 
     std::println("\n=== PostgreSQL CRUD ===\n");
@@ -18,23 +27,9 @@ int main() {
         DbPgsql db;
         StockTickerRepo repo(db);
 
-        // find all
-        auto all = repo.find_all();
-        if (all) {
-            std::println("All tickers ({}):", all->size());
-            for (const auto& t : *all) {
-                std::println("  [{}] {} - {} (etf={})", t.id, t.symbol,
-                             t.company_name, t.is_etf);
-            }
-        }
-
-        // find one
-        std::println("");
         auto one = repo.find_by_symbol("AAPL");
         if (one) {
             std::println("Found: {} - {}", one->symbol, one->company_name);
-        } else {
-            std::println("Error: {}", one.error());
         }
     } catch (const std::exception& e) {
         std::println(stderr, "DB error: {}", e.what());
