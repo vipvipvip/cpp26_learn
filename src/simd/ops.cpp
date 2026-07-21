@@ -37,13 +37,13 @@ void run_simd_demo() {
 
     // scalar
     auto t0 = std::chrono::high_resolution_clock::now();
-    for (int iter = 0; iter < 10000; ++iter)
+    for (int iter = 0; iter < 1000000; ++iter)
         add_scalar(a.data(), b.data(), c.data(), N);
     auto t1 = std::chrono::high_resolution_clock::now();
 
     // simd
     auto t2 = std::chrono::high_resolution_clock::now();
-    for (int iter = 0; iter < 10000; ++iter)
+    for (int iter = 0; iter < 1000000; ++iter)
         add_simd(a.data(), b.data(), c.data(), N);
     auto t3 = std::chrono::high_resolution_clock::now();
 

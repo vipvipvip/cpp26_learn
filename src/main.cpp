@@ -6,6 +6,7 @@
 #include "reflection/reflect.h"
 #include "simd/ops.h"
 #include "std_execution/async.h"
+#include "std_learn/transform.h"
 
 #include <unistd.h>
 #include <print>
@@ -13,13 +14,14 @@
 int main() {
     std::println("=== C++26 Hands-On ===\n");
 
-    run_calculator_demo();
-    run_linalg_demo();
-    run_simd_demo();
-    run_execution_demo();
-    run_reflection_demo();
+    //run_calculator_demo();
+    // run_linalg_demo();
+    // run_simd_demo();
+    // run_execution_demo();
+    // run_reflection_demo();
+    run_std_tranform_demo();
 
-    log_stacktrace("main");
+    //log_stacktrace("main");
 
     std::println("\n=== PostgreSQL CRUD ===\n");
 

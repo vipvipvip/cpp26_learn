@@ -10,12 +10,14 @@ void run_execution_demo() {
 
     // Generate sample trades
     std::vector<Trade> trades;
-    std::mt19937 gen{42};
+    // Obtain a random seed from the hardware
+    std::random_device rd;
+    std::mt19937 gen(rd());
     std::uniform_real_distribution<> price_dist(100.0, 500.0);
     std::uniform_int_distribution<> qty_dist(1, 1000);
 
     const char* symbols[] = {"AAPL", "MSFT", "GOOG", "AMZN", "NVDA"};
-    for (int i = 0; i < 20; ++i) {
+    for (int i = 0; i < 20000; ++i) {
         trades.push_back({
             .id = i + 1,
             .symbol = symbols[i % 5],
